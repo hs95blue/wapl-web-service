@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import com.wapl.app.common.dto.PageDTO;
 import com.wapl.app.common.service.BoardService;
 import com.wapl.app.common.service.MemberService;
+import com.wapl.app.common.vo.Criteria;
 
 /**
  * Handles requests for the application home page.
@@ -28,13 +30,13 @@ public class HomeController {
    * Simply selects the home view to render by returning its name.
    */
   @RequestMapping(value = "/", method = RequestMethod.GET)
-  public String home(Locale locale, Model model) {
+  public String home(Locale locale, Criteria cri, Model model) {
     logger.info("***********************home******************");
-    List<String> newProjList = boardservice.selectBoardListByNew("p");// 뉴프로젝트는 최신순
-    List<String> projList = boardservice.selectBoardListByRecruit("p");// 모집중 프로젝트는 인원안찬것중에 오래된 순
-    List<String> storyList = boardservice.selectBoardList("s");// 최신순
+    List<String> newProjList = boardservice.selectBoardListByNew(cri, "p");// 뉴프로젝트는 최신순
+    List<String> projList = boardservice.selectBoardList(cri, "p");// 모집중 프로젝트는 인원안찬것중에 오래된 순
+    List<String> storyList = boardservice.selectBoardList(cri, "s");// 최신순
     List<String> board = boardservice.selectBoardByBno("p", 1);// 최신순
-    List memberList = memberservice.selectMemberList();// 최신순
+    List memberList = memberservice.selectMemberList(cri);// 최신순
     /*
      * Date date = new Date(); DateFormat dateFormat =
      * DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -50,29 +52,37 @@ public class HomeController {
   }
 
   @RequestMapping(value = "/memberList", method = RequestMethod.GET)
-  public String memberList(Model model) {
-    List memberList = memberservice.selectMemberList();
+  public String memberList(Criteria cri, Model model) {
+    int total = memberservice.selectMemberListTotalCount(cri);
+    List memberList = memberservice.selectMemberList(cri);
+    model.addAttribute("pageMaker", new PageDTO(cri, total));
     model.addAttribute("memberList", memberList);
     return "memberList";
   }
 
   @RequestMapping(value = "/projectList", method = RequestMethod.GET)
-  public String projList(Model model) {
-    List<String> projList = boardservice.selectBoardList("p");
+  public String projList(Criteria cri, Model model) {
+    int total = boardservice.selectBoardListTotalCount(cri, "p");
+    model.addAttribute("pageMaker", new PageDTO(cri, total));
+    List<String> projList = boardservice.selectBoardList(cri, "p");
     model.addAttribute("projList", projList);
     return "projectList";
   }
 
   @RequestMapping(value = "/storyList", method = RequestMethod.GET)
-  public String storyList(Model model) {
-    List<String> storyList = boardservice.selectBoardList("s");
+  public String storyList(Criteria cri, Model model) {
+    int total = boardservice.selectBoardListTotalCount(cri, "s");
+    model.addAttribute("pageMaker", new PageDTO(cri, total));
+    List<String> storyList = boardservice.selectBoardList(cri, "s");
     model.addAttribute("storyList", storyList);
     return "storyList";
   }
 
   @RequestMapping(value = "/lounge", method = RequestMethod.GET)
-  public String lounge(Model model) {
-    List<String> loungeList = boardservice.selectBoardList("l");
+  public String lounge(Criteria cri, Model model) {
+    int total = boardservice.selectBoardListTotalCount(cri, "l");
+    model.addAttribute("pageMaker", new PageDTO(cri, total));
+    List<String> loungeList = boardservice.selectBoardList(cri, "l");
     model.addAttribute("loungeList", loungeList);
     return "lounge";
   }

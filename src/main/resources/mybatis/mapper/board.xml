@@ -4,21 +4,26 @@
 <mapper namespace="com.wapl.app.common.dao.BoardDAO">
 	
 	
-	<resultMap id="BoardMap" type="java.util.Map">
-		<result column="bno" property="bno" />
-		<result column="type" property="type" />
-		<result column="title" property="title" />
-		<result column="content" property="content" />
-		<result column="writer" property="writer" />
-		<result column="hits" property="hits" />
-		<result column="like_cnt" property="likeCnt" />
-		<result column="mem_cnt" property="memCnt" />
-		<result column="tot_mem_cnt" property="totMemCnt" />
-		<result column="status" property="status" />
-		<result column="thumnail" property="thumnail" />
-		<result column="reg_date" property="regDate" />
-		<result column="update_date" property="updateDate" />
-	</resultMap>
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item="type" collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='T'.toString()">
+							title like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							content like '%'||#{keyword}||'%'
+						</when>
+						<when test="type=='W'.toString()">
+							writer like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
 	
 	<insert id="insertBoard" parameterType="BoardVO">
 		INSERT INTO TBL_BOARD(
@@ -53,7 +58,7 @@
 	
 	<select id="selectBoardList" resultType="BoardVO">
 		SELECT bno
-			,type
+			,bType
 			,title
 			,content
 			,writer
@@ -66,13 +71,20 @@
 			,reg_date
 			,update_date
 		  FROM TBL_BOARD 
-		  WHERE type = #{type}
+		  WHERE
+		   <include refid="criteria"></include>
+	       and bType = #{bType}
+	      <![CDATA[
+	      rownum <= #{pageNum} * #{amount}
+	      )
+	      where rn > (#{pageNum} - 1) * #{amount}
+	 		 ]]>
 	</select>
 	
 	<select id="selectBoardListByNew" resultType="BoardVO">
 		<![CDATA[
 		SELECT bno
-			,type
+			,bType
 			,title
 			,content
 			,writer
@@ -89,12 +101,19 @@
 		  and rownum <=4
 		  order by reg_date
 		  ]]>
+		   <include refid="criteria"></include>
+	      
+	      <![CDATA[
+	      rownum <= #{pageNum} * #{amount}
+	      )
+	      where rn > (#{pageNum} - 1) * #{amount}
+	 		 ]]>
 	</select>
 	
 	
 	<select id="selectBoardByBno" resultType="BoardVO">
 		SELECT bno
-			,type
+			,bType
 			,title
 			,content
 			,writer
@@ -109,11 +128,12 @@
 		  FROM TBL_BOARD 
 		  WHERE type = #{type}
 		  and bno = #{bno}
+		  
 	</select>
 	
 	<select id="selectBoardListByRecruit" resultType="BoardVO">
 		SELECT bno
-			,type
+			,bType
 			,title
 			,content
 			,writer
@@ -127,6 +147,13 @@
 			,update_date
 		  FROM TBL_BOARD 
 		  WHERE type = #{type}
+		   <include refid="criteria"></include>
+	      
+	      <![CDATA[
+	      rownum <= #{pageNum} * #{amount}
+	      )
+	      where rn > (#{pageNum} - 1) * #{amount}
+	 		 ]]>
 		  
 	</select>
 	
@@ -154,4 +181,20 @@
 		
 	</delete>
 	
+	<select id="selectBoardListByRecruitTotalCount" resultType="int">
+	 select count(*) from tbl_board 
+	 where type = #{type}
+	 
+	 
+	 and
+	 bno > 0
+	</select>
+	
+	<select id="selectBoardListTotalCount" resultType="int">
+	 select count(*) from tbl_board 
+	 where 
+	 type = #{type}
+	 and
+	 bno > 0
+	</select>
 </mapper>

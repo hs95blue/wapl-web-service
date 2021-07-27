@@ -18,7 +18,7 @@ public class BoardVO {
 
 
   private String bno;
-  private String type;
+  private String bType;
   private String title;
   private String content;
   private String writer;
