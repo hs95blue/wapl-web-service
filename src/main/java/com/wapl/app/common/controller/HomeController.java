@@ -49,4 +49,31 @@ public class HomeController {
     return "home";
   }
 
+  @RequestMapping(value = "/memberList", method = RequestMethod.GET)
+  public String memberList(Model model) {
+    List memberList = memberservice.selectMemberList();
+    model.addAttribute("memberList", memberList);
+    return "memberList";
+  }
+
+  @RequestMapping(value = "/projectList", method = RequestMethod.GET)
+  public String projList(Model model) {
+    List<String> projList = boardservice.selectBoardList("p");
+    model.addAttribute("projList", projList);
+    return "projectList";
+  }
+
+  @RequestMapping(value = "/storyList", method = RequestMethod.GET)
+  public String storyList(Model model) {
+    List<String> storyList = boardservice.selectBoardList("s");
+    model.addAttribute("storyList", storyList);
+    return "storyList";
+  }
+
+  @RequestMapping(value = "/lounge", method = RequestMethod.GET)
+  public String lounge(Model model) {
+    List<String> loungeList = boardservice.selectBoardList("l");
+    model.addAttribute("loungeList", loungeList);
+    return "lounge";
+  }
 }

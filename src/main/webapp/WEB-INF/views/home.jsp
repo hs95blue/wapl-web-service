@@ -130,7 +130,7 @@
               <li class="position"><span class="main_char">본캐: ${member.position1}</span><span>${member.position1Level}</span></li>
               <li class="position"><span class="sub_char">부캐: ${member.position2}</span><span>${member.position2Level}</span></li>
             </ul>
-            <span class="current_proj">진행중인 프로젝트가 (보류)개 있습니다.</span>
+            <span class="current_proj">진행중인 프로젝트가 ${member.size}개 있습니다.</span>
             <button class="heart">♡</button>
           </div>
         </div>

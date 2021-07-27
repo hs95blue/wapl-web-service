@@ -58,9 +58,9 @@
 			,content
 			,writer
 			,hits
-			,like_cnt
-			,memcnt
-			,tot_mem_cnt
+			,like_cnt likeCnt
+			,mem_cnt memCnt
+			,tot_mem_cnt totMemCnt
 			,status
 			,thumnail
 			,reg_date
@@ -77,9 +77,9 @@
 			,content
 			,writer
 			,hits
-			,like_cnt
-			,memcnt
-			,tot_mem_cnt
+			,like_cnt likeCnt
+			,mem_cnt memCnt
+			,tot_mem_cnt totMemCnt
 			,status
 			,thumnail
 			,reg_date
@@ -99,9 +99,9 @@
 			,content
 			,writer
 			,hits
-			,like_cnt
-			,memcnt
-			,tot_mem_cnt
+			,like_cnt likeCnt
+			,mem_cnt memCnt
+			,tot_mem_cnt totMemCnt
 			,status
 			,thumnail
 			,reg_date
@@ -118,9 +118,9 @@
 			,content
 			,writer
 			,hits
-			,like_cnt
-			,memcnt
-			,tot_mem_cnt
+			,like_cnt likeCnt
+			,mem_cnt memCnt
+			,tot_mem_cnt totMemCnt
 			,status
 			,thumnail
 			,reg_date
@@ -139,7 +139,7 @@
 			,writer = #{writer}
 			,hits = #{hits}
 			,like_cnt = #{likeCnt}
-			,memcnt = #{memCnt}
+			,mem_cnt = #{memCnt}
 			,tot_mem_cnt = #{totMemCnt}
 			,status = #{status}
 			,thumnail = #{thumnail}

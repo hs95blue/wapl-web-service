@@ -23,9 +23,11 @@ public class BoardVO {
   private String content;
   private String writer;
   private int hits;
-  private int likeCnt;
+
+  // private int likeCnt;
   private int memCnt;
   private int totMemCnt;
+
   private String thumnail;
   private String status;
   private String regDate;

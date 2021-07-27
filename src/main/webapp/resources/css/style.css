@@ -431,7 +431,8 @@ a.story {
   border: 1px solid #ea6560;
   border-radius: 45%;
   margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
+  padding: 1px 2px;
   color: #ea6560;
 }
 .member__description__bottom {

@@ -13,29 +13,29 @@
 			,sex
 			,email
 			,tel
-			,reg_date
-			,update_date
+			,reg_date regDate
+			,update_date updateDate
 		  FROM TBL_MEMBER 
 		 WHERE mno = #{mno}
 	</insert>
 	
 	<select id="selectMemberList" resultType="MemberVO">
 		SELECT mno
-			,current_pno
-			,finished_pno
+			,current_pno as currentPno
+			,finished_pno as finishedPno
 			,id
 			,pwd
 			,age
 			,sex
 			,email
 			,tel
-			,mem_level
+			,mem_level as memLevel
 			,nickname
 			,position1
 			,position2
-			,position1_level
-			,position2_level
-			,reg_date
+			,position1_level as position1Level 
+			,position2_level as position2Level
+			,reg_date 
 			,update_date
 		  FROM TBL_MEMBER 
 

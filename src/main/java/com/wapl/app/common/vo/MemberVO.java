@@ -1,5 +1,6 @@
 package com.wapl.app.common.vo;
 
+import java.util.Arrays;
 import lombok.Data;
 
 @Data
@@ -8,6 +9,7 @@ public class MemberVO {
   // 시퀀스번호
   private String mno;
   private String currentPno;
+  private int finishedProjCnt;
   private String finishedPno;
   // id
   private String id;
@@ -31,7 +33,15 @@ public class MemberVO {
   private String nickname;
   private String position1;
   private String position2;
-  private int position1Level;
-  private int position2Level;
+  private String position1Level;
+  private String position2Level;
+  private int size;
 
+  public void setCurrentPno(String currentPno) {
+    this.currentPno = currentPno;
+    array = Arrays.stream(currentPno.split(",")).mapToInt(Integer::parseInt).toArray();
+    size = array.length;
+  }
+
+  int[] array;
 }
