@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wapl.app.common.dao.BoardDAO">
+	
+	
+	<resultMap id="BoardMap" type="java.util.Map">
+		<result column="bno" property="bno" />
+		<result column="type" property="type" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="writer" property="writer" />
+		<result column="hits" property="hits" />
+		<result column="like_cnt" property="likeCnt" />
+		<result column="mem_cnt" property="memCnt" />
+		<result column="tot_mem_cnt" property="totMemCnt" />
+		<result column="status" property="status" />
+		<result column="thumnail" property="thumnail" />
+		<result column="reg_date" property="regDate" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
+	
+	<insert id="insertBoard" parameterType="BoardVO">
+		INSERT INTO TBL_BOARD(
+			bno
+			, type
+			, title
+			, content
+			, writer
+			, hits
+			, like_cnt
+			, mem_cnt
+			, tot_mem_cnt
+			, status
+			, reg_date
+			, update_date
+			) 
+		VALUES(
+			#{bno}
+			, #{type}
+			, #{title}
+			, #{content}
+			, #{writer}
+			, #{hits}
+			, #{likeCnt}
+			, #{memCnt}
+			, #{totMemCnt}
+			, #{status}
+			, #{regDate}
+			, #{updateDate}
+			)
+	</insert>
+	
+	<select id="selectBoardList" resultType="BoardVO">
+		SELECT bno
+			,type
+			,title
+			,content
+			,writer
+			,hits
+			,like_cnt
+			,memcnt
+			,tot_mem_cnt
+			,status
+			,thumnail
+			,reg_date
+			,update_date
+		  FROM TBL_BOARD 
+		  WHERE type = #{type}
+	</select>
+	
+	<select id="selectBoardListByNew" resultType="BoardVO">
+		<![CDATA[
+		SELECT bno
+			,type
+			,title
+			,content
+			,writer
+			,hits
+			,like_cnt
+			,memcnt
+			,tot_mem_cnt
+			,status
+			,thumnail
+			,reg_date
+			,update_date
+		  FROM TBL_BOARD 
+		  WHERE type = #{type}
+		  and rownum <=4
+		  order by reg_date
+		  ]]>
+	</select>
+	
+	
+	<select id="selectBoardByBno" resultType="BoardVO">
+		SELECT bno
+			,type
+			,title
+			,content
+			,writer
+			,hits
+			,like_cnt
+			,memcnt
+			,tot_mem_cnt
+			,status
+			,thumnail
+			,reg_date
+			,update_date
+		  FROM TBL_BOARD 
+		  WHERE type = #{type}
+		  and bno = #{bno}
+	</select>
+	
+	<select id="selectBoardListByRecruit" resultType="BoardVO">
+		SELECT bno
+			,type
+			,title
+			,content
+			,writer
+			,hits
+			,like_cnt
+			,memcnt
+			,tot_mem_cnt
+			,status
+			,thumnail
+			,reg_date
+			,update_date
+		  FROM TBL_BOARD 
+		  WHERE type = #{type}
+		  
+	</select>
+	
+	<update id="updateBoard">
+		UPDATE TBL_BOARD 
+		   SET bno = #{bno}
+			,type = #{type}
+			,title = #{title}
+			,content = #{content}
+			,writer = #{writer}
+			,hits = #{hits}
+			,like_cnt = #{likeCnt}
+			,memcnt = #{memCnt}
+			,tot_mem_cnt = #{totMemCnt}
+			,status = #{status}
+			,thumnail = #{thumnail}
+			,reg_date = #{regDate}
+			,update_date = #{updateDate}
+		 WHERE bno = #{bno}
+	</update>
+	
+	<delete id="deleteBoard">
+		DELETE FROM TBL_BOARD 
+		 WHERE bno = #{bno}
+		
+	</delete>
+	
+</mapper>

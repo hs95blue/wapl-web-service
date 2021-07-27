@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wapl.app.common.dao.MemberDAO">
+
+	<insert id="insertMember" parameterType="MemberVO">
+		SELECT mno
+			,current_pno
+			,finished_pno
+			,id
+			,pwd
+			,age
+			,sex
+			,email
+			,tel
+			,reg_date
+			,update_date
+		  FROM TBL_MEMBER 
+		 WHERE mno = #{mno}
+	</insert>
+	
+	<select id="selectMemberList" resultType="MemberVO">
+		SELECT mno
+			,current_pno
+			,finished_pno
+			,id
+			,pwd
+			,age
+			,sex
+			,email
+			,tel
+			,mem_level
+			,nickname
+			,position1
+			,position2
+			,position1_level
+			,position2_level
+			,reg_date
+			,update_date
+		  FROM TBL_MEMBER 
+
+	</select>
+	<update id="updateMember">
+		UPDATE TBL_MEMBER 
+		   SET mno = #{mno}
+			,current_pno = #{currentPno}
+			,finished_pno = #{finishedPno}
+			,id = #{id}
+			,pwd = #{pwd}
+			,age = #{age}
+			,sex = #{sex}
+			,email = #{email}
+			,tel = #{tel}
+			,level = #{level}
+			,position1 = #{position1}
+			,position2 = #{position2}
+			,position1_level = #{position1Level}
+			,position2_level = #{position2Level}
+			,nickname = #{nickname}
+			,reg_date = #{regDate}
+			,update_date = #{updateDate}
+		 WHERE mno = #{mno}
+
+	</update>
+	
+	<delete id="deleteMember">
+		DELETE FROM TBL_MEMBER 
+		 WHERE mno = #{mno}
+
+	</delete>
+	
+</mapper>
