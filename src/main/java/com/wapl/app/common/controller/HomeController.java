@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.wapl.app.common.dto.PageDTO;
 import com.wapl.app.common.service.BoardService;
 import com.wapl.app.common.service.MemberService;
+import com.wapl.app.common.vo.BoardVO;
 import com.wapl.app.common.vo.Criteria;
 
 /**
@@ -29,13 +30,13 @@ public class HomeController {
   /**
    * Simply selects the home view to render by returning its name.
    */
-  @RequestMapping(value = "/", method = RequestMethod.GET)
+  @RequestMapping(value = "/home", method = RequestMethod.GET)
   public String home(Locale locale, Criteria cri, Model model) {
     logger.info("***********************home******************");
     List<String> newProjList = boardservice.selectBoardListByNew(cri, "p");// 뉴프로젝트는 최신순
     List<String> projList = boardservice.selectBoardList(cri, "p");// 모집중 프로젝트는 인원안찬것중에 오래된 순
     List<String> storyList = boardservice.selectBoardList(cri, "s");// 최신순
-    List<String> board = boardservice.selectBoardByBno("p", 1);// 최신순
+    BoardVO board = boardservice.selectBoardByBno("p", 1);// 최신순
     List memberList = memberservice.selectMemberList(cri);// 최신순
     /*
      * Date date = new Date(); DateFormat dateFormat =
@@ -54,7 +55,7 @@ public class HomeController {
   @RequestMapping(value = "/memberList", method = RequestMethod.GET)
   public String memberList(Criteria cri, Model model) {
     int total = memberservice.selectMemberListTotalCount(cri);
-    List memberList = memberservice.selectMemberList(cri);
+    List<Criteria> memberList = memberservice.selectMemberList(cri);
     model.addAttribute("pageMaker", new PageDTO(cri, total));
     model.addAttribute("memberList", memberList);
     return "memberList";
@@ -86,4 +87,6 @@ public class HomeController {
     model.addAttribute("loungeList", loungeList);
     return "lounge";
   }
+
+
 }

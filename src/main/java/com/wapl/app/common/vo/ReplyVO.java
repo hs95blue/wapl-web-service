@@ -1,19 +1,20 @@
 package com.wapl.app.common.vo;
 
+import java.sql.Date;
 import lombok.Data;
 
 @Data
 public class ReplyVO {
   // 시퀀스
-  private String rno;
+  private int rno;
   // 참조 게시글 넘버
-  private String bno;
+  private int bno;
   // 댓글내용
   private String reply;
   // 댓글작성자
   private String replyer;
   // 작성날짜
-  private String regDate;
+  private Date regDate;
   // 수정날짜
-  private String updateDate;
+  private Date updateDate;
 }

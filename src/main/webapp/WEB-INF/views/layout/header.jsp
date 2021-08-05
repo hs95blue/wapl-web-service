@@ -10,5 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>We play WAPL!</title>
 <c:import url="include/include.jsp"></c:import>
+<link rel="icon" href="${contextPath}/resources/image/favicon.png">
+
 </head>
 <body>

@@ -9,14 +9,16 @@
 			<foreach item="type" collection="typeArr">
 				<trim prefix="OR">
 					<choose>
-						<when test="type=='T'.toString()">
-							title like '%'||#{keyword}||'%'
+						<when test="type=='P'.toString()">
+							position1 like '%'||#{keyword}||'%'
+							OR
+							position2 like '%'||#{keyword}||'%'
 						</when>
-						<when test="type=='C'.toString()">
-							content like '%'||#{keyword}||'%'
+						<when test="type=='N'.toString()">
+							nickname like '%'||#{keyword}||'%'
 						</when>
-						<when test="type=='W'.toString()">
-							writer like '%'||#{keyword}||'%'
+						<when test="type=='I'.toString()">
+							mem_id like '%'||#{keyword}||'%'
 						</when>
 					</choose>
 				</trim>
@@ -24,29 +26,98 @@
 		</trim>
 	</sql>
 	<insert id="insertMember" parameterType="MemberVO">
-		SELECT mno
-			,current_pno
-			,finished_pno
-			,id
-			,pwd
-			,age
-			,sex
-			,email
-			,tel
-			,reg_date regDate
-			,update_date updateDate
-		  FROM TBL_MEMBER 
-		 WHERE mno = #{mno}
+		INSERT INTO TBL_MEMBER(
+			mno
+			, mem_id
+			, pwd
+			, age
+			, gender
+			, email
+			, tel
+			, mem_level
+			, nickname
+			, position1
+			, position2
+			, position1_level
+			, position2_level
+			, image
+			) 
+		VALUES(
+			seq_tbl_member.nextval
+			, #{memId}
+			, #{pwd}
+			, #{age}
+			, #{gender}
+			, #{email}
+			, #{tel}
+			, #{memLevel}
+			, #{nickname}
+			, #{position1}
+			, #{position2}
+			, #{position1Level}
+			, #{position2Level}
+			, #{image}
+			)
 	</insert>
 	
-	<select id="selectMemberList" resultType="MemberVO">
+	<select id="selectMember" resultType="MemberVO">
 		SELECT mno
-			,current_pno as currentPno
-			,finished_pno as finishedPno
-			,id
+			,current_pno currentPno
+			,finished_pno finishedPno
+			,mem_id memId
 			,pwd
 			,age
-			,sex
+			,gender
+			,email
+			,tel
+			,mem_level memLevel
+			,nickname
+			,position1
+			,position2
+			,position1_level position1Level
+			,position2_level position2Level
+			,reg_date  regDate 
+			,update_date  updateDate
+			,image
+		  FROM TBL_MEMBER 
+		 WHERE 
+		   mem_id = #{memId}
+			
+	
+	</select>
+	<select id="selectMemberList" resultType="MemberVO">
+	
+		 <![CDATA[
+	  select 
+	    	mno
+			,currentPno
+			,finishedPno
+			,memId
+			,pwd
+			,age
+			,gender
+			,email
+			,tel
+			,memLevel
+			,nickname
+			,position1
+			,position2
+			,position1Level 
+			,position2Level
+			,image
+			,reg_date 
+			,update_date
+	  from 
+	      (
+	      select /*+INDEX_DESC(tbl_member TBL_MEMBER_PK) */
+	        rownum rn
+	        ,mno
+			,current_pno as currentPno
+			,finished_pno as finishedPno
+			,mem_id memId
+			,pwd
+			,age
+			,gender
 			,email
 			,tel
 			,mem_level as memLevel
@@ -57,8 +128,11 @@
 			,position2_level as position2Level
 			,reg_date 
 			,update_date
-		  FROM TBL_MEMBER 
-		  where
+			,image
+	      from 
+	        TBL_MEMBER
+	      where 
+	      ]]>
 		   <include refid="criteria"></include>
 	      
 	      <![CDATA[
@@ -68,15 +142,21 @@
 	 		 ]]>
 
 	</select>
+	<update id="updateJoinProject">
+			UPDATE TBL_MEMBER 
+		   SET 
+			current_pno = #{currentPno}
+		 WHERE memId = #{memId}
+	</update>
 	<update id="updateMember">
 		UPDATE TBL_MEMBER 
 		   SET mno = #{mno}
 			,current_pno = #{currentPno}
 			,finished_pno = #{finishedPno}
-			,id = #{id}
+			,memId = #{memId}
 			,pwd = #{pwd}
 			,age = #{age}
-			,sex = #{sex}
+			,gender = #{gender}
 			,email = #{email}
 			,tel = #{tel}
 			,level = #{level}
@@ -87,20 +167,19 @@
 			,nickname = #{nickname}
 			,reg_date = #{regDate}
 			,update_date = #{updateDate}
-		 WHERE mno = #{mno}
+		 WHERE memId = #{memId}
 
 	</update>
 	
 	<delete id="deleteMember">
 		DELETE FROM TBL_MEMBER 
-		 WHERE mno = #{mno}
+		 WHERE memId = #{memId}
 
 	</delete>
 	<select id="selectMemberListTotalCount" resultType="int">
 	 select count(*) from tbl_member 
 	 where 
-	 
-	 
+	  <include refid="criteria"></include>
 	 mno > 0
 	</select>
 	

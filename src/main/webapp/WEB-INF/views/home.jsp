@@ -14,8 +14,8 @@
       
      
       <div class="work__projects">
-      <c:forEach items="${newProjList}" varStatus=""  var="newProj"> 
-      	 <a href="" class="project" target="blank" data-type="front-end">
+      <c:forEach items="${newProjList}" varStatus=""  var="newProj"  begin="0" end="3"> 
+      	 <a href="${contextPath}/board/boardInfo?bno=${newProj.bno}" class="project"  data-type="front-end">
           <img
             src="${contextPath}/resources/image/${newProj.thumnail}"
             alt="Youtube"
@@ -48,8 +48,8 @@
     <h2>모집중인 프로젝트  <span style="font-size:20px;">Recruiting Project</span></h2>
     
     <div class="work__projects">
-    <c:forEach items="${projList}" varStatus=""  var="proj"> 
-   		 <a href="" class="project" target="blank" data-type="front-end">
+    <c:forEach items="${projList}" varStatus=""  var="proj" begin="0" end="6"> 
+   		 <a href="${contextPath}/board/boardInfo?bno=${proj.bno}" class="project"  data-type="front-end">
 	        <img
 	          src="${contextPath}/resources/image/${proj.thumnail}"
 	          alt="Youtube"
@@ -58,23 +58,23 @@
 	        <div class="project__description__content">
 	          <span>${proj.content }</span>
 	        </div>
-	        <div class="re_project__description__title">
+	        <div class="project__description__title">
 	          <h3>${proj.title}</h3>
-	          <span class="recruiting">${proj.memCnt}/${proj.totMemCnt}</span>
+	          <span class="recruiting">모집:${proj.memCnt}/${proj.totMemCnt}</span>
 	        </div>
 	      </a>	
    
     </c:forEach>
      
     </div>
-    <button class="story__button">더 많은 프로젝트 보기</button>
+    <button class="story__button" onclick="goPage('projectList')">더 많은 프로젝트 보기</button>
    </div>
   </section>
   <!-- 모집중 프로젝트 리스트 End-->
   
 
   <!-- Section2 -->
-  <section class="seperation2" id="seperation2">
+  <section class="seperation2" id="seperation2" >
   </section>
 
 
@@ -84,8 +84,8 @@
     <h2>와플 이야기  <span style="font-size:20px;">WAPL Story</span> </h2>
   
     <div class="story__boardList">
-     <c:forEach items="${storyList}" varStatus=""  var="story">
-     	 <a href="" class="story" target="blank" data-type="front-end">
+     <c:forEach items="${storyList}" varStatus=""  var="story"  begin="1" end="3">
+     	 <a href="${contextPath}/story/storyInfo?bno=${story.bno}" class="story"  data-type="front-end">
         <img
           src="${contextPath}/resources/image/${story.thumnail}"
           alt="Youtube"
@@ -100,7 +100,7 @@
       </a>
      </c:forEach>
     </div>
-    <button class="story__button">더 많은 스토리보기</button>
+    <button class="story__button" onclick="goPage('storyList')">더 많은 스토리보기</button>
    </div>
   </section>
    <!-- 스토리 End-->
@@ -114,11 +114,11 @@
     <div class="section__container">
       <h2>와플인 <span style="font-size:20px;">WAPL Members</span></h2>
       <div class="member__list">
-		 <c:forEach items="${memberList}" varStatus=""  var="member">
+		 <c:forEach items="${memberList}" varStatus=""  var="member"  begin="0" end="10">
 		 	<div class="member__description">
           <div class="member__description__top">
             
-            <img src="${contextPath}/resources/image/favicon.png" alt="" class="profile">
+            <img src="${contextPath}/resources/image/${member.image}" alt="" class="profile">
             <div class="member_id">
               <div class="level">Lv.${member.memLevel}</div>
               <a href="#">${member.nickname}</a>
@@ -139,7 +139,7 @@
         
       </div>
       
-      <button class="member__button">더 많은 와플인보기</button>
+      <button class="member__button" onclick="goPage('memberList')">더 많은 와플인보기</button>
   </section>
   <!-- 와플인 End-->
 

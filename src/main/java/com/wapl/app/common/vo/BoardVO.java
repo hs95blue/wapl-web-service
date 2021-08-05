@@ -1,5 +1,6 @@
 package com.wapl.app.common.vo;
 
+import java.sql.Date;
 import lombok.Data;
 
 
@@ -17,7 +18,7 @@ public class BoardVO {
   // 수정날짜
 
 
-  private String bno;
+  private int bno;
   private String bType;
   private String title;
   private String content;
@@ -25,12 +26,13 @@ public class BoardVO {
   private int hits;
 
   // private int likeCnt;
+  private int likeCnt;
   private int memCnt;
   private int totMemCnt;
 
   private String thumnail;
   private String status;
-  private String regDate;
-  private String updateDate;
+  private Date regDate; 
+  private Date updateDate;
 
 }

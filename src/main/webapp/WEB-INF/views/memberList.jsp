@@ -87,7 +87,7 @@ $(document).ready(function() {
 		 	<div class="member__description">
           <div class="member__description__top">
             
-            <img src="${contextPath}/resources/image/favicon.png" alt="" class="profile">
+            <img src="${contextPath}/resources/image/${member.image}" alt="" class="profile">
             <div class="member_id">
               <div class="level">Lv.${member.memLevel}</div>
               <a href="#">${member.nickname}</a>
@@ -108,28 +108,26 @@ $(document).ready(function() {
         
         
         <!-- 검색폼 시작 -->
-	  <form id = 'searchForm' action="/memberList" method="get">
+	  <form id = 'searchForm' class="searchForm" action="${contextPath}/memberList" method="get">
 	   <select name='type'>
 	   <!-- 검색 버튼 누르고 페이지 이동 했을때 selected 항목 표시 -->
 	     <option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' :''}"/>>--</option>
-	     <option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' :''}"/>>제목
-	     <option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' :''}"/>>내용</option>
-	     <option value="W" <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' :''}"/>>작성자</option>
-	     <option value="TC" <c:out value="${pageMaker.cri.type eq 'TC' ? 'selected' :''}"/>>제목 or 내용</option>
-	     <option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' :''}"/>>제목 or 작성자</option>
-	     <option value="TWC" <c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected' :''}"/>>제목 or 내용 or 작성자</option>
+	     <option value="P" <c:out value="${pageMaker.cri.type eq 'P' ? 'selected' :''}"/>>포지션
+	     <option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' :''}"/>>닉네임</option>
+	     <option value="I" <c:out value="${pageMaker.cri.type eq 'I' ? 'selected' :''}"/>>아이디</option>
 	   </select>
 	   <!-- 검색 버튼 누르고 페이지 이동 했을때 keyword표시 -->
 	   <input type='text' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'/>
      <input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"/>'>
      <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}"/>'>
-	   <button>검색</button>
+	   <button class="search-btn">검색</button>
 	  </form>
 	<!-- 검색폼 끝 -->
 	
 	<!-- 페이징 시작 -->
+	<div class="page-btn">
 		<c:if test="${pageMaker.prev}">
-		  <a class= "paginate_button" href="${pageMaker.startPage-1}">이전</a>
+		  <a class= "paginate_button" href="${pageMaker.startPage-1}"><</a>
 		</c:if>
 		
 		<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
@@ -137,11 +135,11 @@ $(document).ready(function() {
 		</c:forEach>
 		
 		<c:if test="${pageMaker.next}">
-		  <a class= "paginate_button" href="${pageMaker.endPage+1}">다음</a>
+		  <a class= "paginate_button" href="${pageMaker.endPage+1}">></a>
 		</c:if>
 	<!-- 페이징 끝 -->
-		
-		<form id="actionForm" action="/memberList" method="get">
+	</div>
+		<form id="actionForm" action="${contextPath}/memberList" method="get">
 		  <input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"/>'>
 		  <input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount}"/>'>
 		        <!-- 페이지 번호를 클릭해서 이동할때도 검색조건, 키워드는 같이 전달 -->

@@ -7,17 +7,17 @@
 
 	<sql id="criteria">
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
-			<foreach item="type" collection="typeArr">
+			<foreach item="type" collection="cri.typeArr">
 				<trim prefix="OR">
 					<choose>
 						<when test="type=='T'.toString()">
-							title like '%'||#{keyword}||'%'
+							title like '%'||#{cri.keyword}||'%'
 						</when>
 						<when test="type=='C'.toString()">
-							content like '%'||#{keyword}||'%'
+							content like '%'||#{cri.keyword}||'%'
 						</when>
 						<when test="type=='W'.toString()">
-							writer like '%'||#{keyword}||'%'
+							writer like '%'||#{cri.keyword}||'%'
 						</when>
 					</choose>
 				</trim>
@@ -28,36 +28,46 @@
 	<insert id="insertBoard" parameterType="BoardVO">
 		INSERT INTO TBL_BOARD(
 			bno
-			, type
+			, bType
 			, title
 			, content
 			, writer
-			, hits
-			, like_cnt
-			, mem_cnt
+			, mem_cnt 
 			, tot_mem_cnt
-			, status
-			, reg_date
-			, update_date
+			, thumnail
 			) 
 		VALUES(
-			#{bno}
-			, #{type}
+			seq_tbl_board.nextval
+			, #{bType}
 			, #{title}
 			, #{content}
 			, #{writer}
-			, #{hits}
-			, #{likeCnt}
 			, #{memCnt}
 			, #{totMemCnt}
-			, #{status}
-			, #{regDate}
-			, #{updateDate}
+			, #{thumnail}
 			)
 	</insert>
 	
-	<select id="selectBoardList" resultType="BoardVO">
-		SELECT bno
+	<select id="selectBoardList"  resultType="BoardVO">
+	 <![CDATA[
+		select bno
+			,bType
+			,title
+			,content
+			,writer
+			,hits
+			,likeCnt
+			,memCnt
+			,totMemCnt
+			,status
+			,thumnail
+			,regDate
+			,updateDate
+	  from 
+	      (
+	      select /*+INDEX_DESC(tbl_board TBL_BOARD_PK) */
+	        rownum rn
+	       ,bno
 			,bType
 			,title
 			,content
@@ -68,21 +78,27 @@
 			,tot_mem_cnt totMemCnt
 			,status
 			,thumnail
-			,reg_date
-			,update_date
-		  FROM TBL_BOARD 
-		  WHERE
+			,reg_date regDate
+			,update_date updateDate
+	      from 
+	        TBL_BOARD
+	      where bType = #{bType} 
+	      and
+	      ]]>
 		   <include refid="criteria"></include>
-	       and bType = #{bType}
 	      <![CDATA[
-	      rownum <= #{pageNum} * #{amount}
+	      rownum <= #{cri.pageNum} * #{cri.amount}
 	      )
-	      where rn > (#{pageNum} - 1) * #{amount}
+	      where rn > (#{cri.pageNum} - 1) * #{cri.amount}
 	 		 ]]>
+		  
+
+		
+		
 	</select>
 	
 	<select id="selectBoardListByNew" resultType="BoardVO">
-		<![CDATA[
+		 <![CDATA[
 		SELECT bno
 			,bType
 			,title
@@ -97,41 +113,15 @@
 			,reg_date
 			,update_date
 		  FROM TBL_BOARD 
-		  WHERE type = #{type}
+		  WHERE bType = #{bType}
 		  and rownum <=4
 		  order by reg_date
 		  ]]>
-		   <include refid="criteria"></include>
-	      
-	      <![CDATA[
-	      rownum <= #{pageNum} * #{amount}
-	      )
-	      where rn > (#{pageNum} - 1) * #{amount}
-	 		 ]]>
 	</select>
 	
 	
 	<select id="selectBoardByBno" resultType="BoardVO">
-		SELECT bno
-			,bType
-			,title
-			,content
-			,writer
-			,hits
-			,like_cnt likeCnt
-			,mem_cnt memCnt
-			,tot_mem_cnt totMemCnt
-			,status
-			,thumnail
-			,reg_date
-			,update_date
-		  FROM TBL_BOARD 
-		  WHERE type = #{type}
-		  and bno = #{bno}
-		  
-	</select>
 	
-	<select id="selectBoardListByRecruit" resultType="BoardVO">
 		SELECT bno
 			,bType
 			,title
@@ -146,21 +136,15 @@
 			,reg_date
 			,update_date
 		  FROM TBL_BOARD 
-		  WHERE type = #{type}
-		   <include refid="criteria"></include>
-	      
-	      <![CDATA[
-	      rownum <= #{pageNum} * #{amount}
-	      )
-	      where rn > (#{pageNum} - 1) * #{amount}
-	 		 ]]>
+		  WHERE bType = #{bType}
+		  and bno = #{bno}
 		  
 	</select>
 	
 	<update id="updateBoard">
 		UPDATE TBL_BOARD 
 		   SET bno = #{bno}
-			,type = #{type}
+			,bType = #{bType}
 			,title = #{title}
 			,content = #{content}
 			,writer = #{writer}
@@ -174,6 +158,13 @@
 			,update_date = #{updateDate}
 		 WHERE bno = #{bno}
 	</update>
+	<update id="updateJoinProj">
+		UPDATE TBL_BOARD 
+		   SET 
+			,mem_cnt = #{memCnt+1}
+			,status = #{status}
+		 WHERE bno = #{bno}
+	</update>
 	
 	<delete id="deleteBoard">
 		DELETE FROM TBL_BOARD 
@@ -181,19 +172,12 @@
 		
 	</delete>
 	
-	<select id="selectBoardListByRecruitTotalCount" resultType="int">
-	 select count(*) from tbl_board 
-	 where type = #{type}
-	 
-	 
-	 and
-	 bno > 0
-	</select>
 	
 	<select id="selectBoardListTotalCount" resultType="int">
 	 select count(*) from tbl_board 
 	 where 
-	 type = #{type}
+	  <include refid="criteria"></include>
+	 bType = #{bType}
 	 and
 	 bno > 0
 	</select>

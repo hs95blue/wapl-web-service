@@ -108,7 +108,6 @@ p {
 .login_logout {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
 }
 .login_logout button {
   border-radius: 5%;
@@ -213,13 +212,14 @@ p {
   flex-wrap: wrap;
   justify-content: center;
   padding: 10px;
+  margin:30px;
 }
 
 .project {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 280px;
   height: 250px;
@@ -253,7 +253,7 @@ p {
   transform: translateY(0px);
 }
 /* recruiting project */
-.re_project__description__title {
+.project__description__title {
   display: flex;
   width: 100%;
   padding: 5px 15px;
@@ -261,11 +261,11 @@ p {
   justify-content: space-between;
 }
 
-.re_project__description__title h3,
+.project__description__title h3,
 .project__description__title h3 {
   font-weight: bold;
 }
-.re_project__description__title .recruiting {
+.project__description__title .recruiting {
   color: #616161;
   padding-top: 10px;
   font-weight: 600;
@@ -432,6 +432,7 @@ a.story {
   border-radius: 45%;
   margin-left: 10px;
   margin-top: 5px;
+  max-width: 48px;
   padding: 1px 2px;
   color: #ea6560;
 }
@@ -533,6 +534,416 @@ a.story {
 h2.contact__title {
   text-align: center;
 }
+
+/* 검색폼 & 페이징*/
+
+.searchForm {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.searchForm .search-btn {
+  border: 1px solid #bdbdbd;
+  color: #2b8f9cbd;
+  padding: 5px 12px;
+  border-radius: 10%;
+  font-weight: 600;
+  margin: 3px;
+}
+.searchForm .search-btn:hover {
+  border: 1.5px solid #73aace;
+  background-color: #f6f8f8;
+}
+
+.searchForm select {
+  padding: 5px;
+  margin: 3px;
+}
+
+.searchForm input {
+  padding: 5px;
+  margin: 3px;
+}
+
+.page-btn {
+  width: 250px;
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+a.paginate_button {
+  color: #000000;
+  margin: 5px;
+  padding: 2px 8px;
+  color: rgb(34, 39, 34);
+  font-weight: bold;
+}
+a.paginate_button.active {
+  background-color: #d3eaf3;
+}
+
+/* submit */
+.submit-btn {
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  display: inline-block;
+  font-weight: 400;
+  border: 2px solid #edf1f3;
+  background-color: #3662f3;
+  border-radius: 10%;
+  color: white;
+  width: 120px;
+  margin-top: 20px;
+}
+.buttons {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+}
+.submit-btn:hover {
+  background-color: #2d89ad;
+  border-color: #8dcfe9;
+}
+.boardForm {
+  height: 700px;
+}
+
+.inputForm {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: 20px auto;
+}
+
+.form-group.content {
+  height: 80%;
+}
+.form-group.content #content {
+  height: 80%;
+}
+
+.form-group label {
+  font-weight: bold;
+  font-size: large;
+  display: flex;
+  float: left;
+}
+
+.inputForm input,
+textarea {
+  border: 2px solid #ccc8c8;
+  width: 100%;
+  padding: 10px 20px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+
+.inputForm input:hover {
+  border-color: #1063fd;
+}
+
+.inputForm .inputForm__input__file {
+  display: none;
+}
+
+.inputForm__input__file--btn {
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  display: inline-block;
+  font-weight: 400;
+  border: 2px solid #ebedee;
+  background-color: #2d7bf0;
+  border-radius: 10%;
+  color: white;
+  width: 100px;
+  margin-top: 20px;
+}
+.inputForm__input__file--btn:hover {
+  border-color: #73aace;
+  background-color: #2d7bf0;
+}
+
+.form-group.filebox label {
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  display: inline-block;
+  font-weight: 400;
+  border: 2px solid #ebedee;
+  background-color: #2d7bf0;
+  border-radius: 10%;
+  color: white;
+  width: 100px;
+  margin-top: 20px;
+}
+
+.form-group.filebox label:hover {
+  border-color: #73aace;
+  background-color: #2d7bf0;
+}
+
+.cancel-btn {
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  display: inline-block;
+  font-weight: 400;
+  border: 2px solid #e1e5e7;
+  background-color: #716e72;
+  border-radius: 10%;
+  color: white;
+  width: 100px;
+  margin-top: 20px;
+}
+.cancel-btn:hover {
+  background-color: #2d89ad;
+  border-color: #8dcfe9;
+}
+p.file_title {
+  font-weight: bold;
+  font-size: large;
+  display: flex;
+  float: left;
+}
+.form-group.total input {
+  width: 30%;
+}
+/* 게시물 상세 */
+.board_title:after {
+  content: "";
+  display: block;
+  position: relative;
+  left: 1%;
+  width: 500px;
+  height: 2px;
+  margin-left: -12px;
+  margin-top: 8px;
+  background-color: var(--color-dark-white);
+}
+.board_content {
+  text-align: left;
+  margin-top: 10px;
+  min-height: 500px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.mem_cnt {
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: flex-end;
+}
+.section__container.board_info {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1000px;
+}
+.section__container.board_info .buttons {
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: flex-end;
+}
+.section__container.board_info .buttons button {
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  display: inline-block;
+  font-weight: 400;
+  border: 2px solid #e1e5e7;
+  background-color: #716e72;
+  border-radius: 10%;
+  color: white;
+  width: 100px;
+  margin-top: 20px;
+}
+.section__container.board_info .buttons .update-btn {
+  background-color: #3662f3;
+}
+.section__container.board_info .buttons .delete-btn {
+  background-color: #d8615d;
+}
+.section__container.board_info .buttons .project-join {
+  background-color: #1063fd;
+}
+.section__container.board_info .status {
+  display: flex;
+  justify-content: flex-end;
+  width: 90%;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+/* 회원가입 */
+.member {
+  display: flex;
+  flex-direction: column;
+}
+.mem_join {
+  text-align: center;
+}
+
+.member.mem_id,
+.member.mem_nickname,
+.member.mem_password,
+.member.mem_age,
+.member.mem_tel,
+.member.mem_email {
+  width: 40%;
+}
+
+.member.mem_position {
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  padding-right: 3%;
+}
+
+.member.mem_gender {
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+  vertical-align: middle;
+}
+
+.mem_join .inputForm .member.mem_gender input {
+  padding: 0px;
+  margin: 5px 0px;
+  width: 20px;
+}
+
+.mem_join .inputForm .member.mem_gender label {
+  padding: 0;
+  width: 50px;
+}
+
+.mem_join label::before {
+  content: "*";
+  color: red;
+}
+
+.mem_join .inputForm .label_uploadFile {
+  text-align: center;
+  width: 40%;
+  margin: 0;
+}
+
+.mem_join .inputForm .mem_img {
+  float: left;
+}
+
+.mem_join .inputForm .filebox {
+  margin-left: 10%;
+}
+
+.mem_join .inputForm .label_uploadFile::before {
+  content: none;
+}
+
+.mem_form-group.mem_password {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mem_join h2 {
+  margin-left: 20%;
+}
+.mem_join .inputForm {
+  width: 50%;
+  margin: 30px auto;
+}
+.mem_join .inputForm input {
+  margin: 10px auto;
+}
+.mem_join .inputForm label {
+  margin: 0;
+  font-weight: bold;
+  width: 50%;
+  text-align: left;
+}
+.mem_password {
+  margin-left: 3.5%;
+}
+
+.mem_form-group {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+select {
+  margin-top: 10px;
+  width: 200px;
+  padding: 0.8em 0.5em;
+  border: 1px solid #999;
+  font-family: inherit;
+  background: url("arrow.jpg") no-repeat 95% 50%;
+  border-radius: 0px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.section__container.login {
+  width: 70%;
+  min-height: 300px;
+}
+.section__container.login h2 {
+  margin-bottom: 80px;
+  min-width: 200px;
+}
+.login_form-group {
+  display: flex;
+  align-items: center;
+}
+.login_form-group label {
+  width: 20%;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-left: 4rem;
+  min-width: 100px;
+}
+.login_form-group input {
+  width: 40%;
+  min-width: 100px;
+}
+.buttons.login {
+  margin-top: 30px;
+}
+
+
 /* For below 768px screen width */
 @media screen and (max-width: 768px) {
   .navbar__toggle-btn {
